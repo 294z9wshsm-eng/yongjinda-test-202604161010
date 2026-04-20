@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "self-improving-agent": {
+      "version": "3.0.16",
+      "installedAt": 1776598551103
+    },
+    "multi-search-engine-simple": {
+      "version": "1.0.0",
+      "installedAt": 1776599372568
+    },
+    "web-anti-crawl-search": {
+      "version": "1.0.0",
+      "installedAt": 1776599383907
+    }
+  }
+}
