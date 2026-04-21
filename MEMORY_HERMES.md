@@ -163,10 +163,29 @@
 | **light** | 候选内容暂存（staged），等待晋升 | `memory/dreaming/light/` |
 | **rem** | 反思阶段，提炼"持久真理" | `memory/dreaming/rem/` |
 
+**晋升流程（重要）：**
+```
+会话记录 (session-corpus/*.txt)
+    ↓ 每日摄入 (daily-ingestion)
+暂存候选 (light/ — confidence: 0.62)
+    ↓ 反思提炼 (rem — lightHits累积)
+持久真理 → MEMORY.md
+```
+
 小强的对应：
 - **DREAMS.md** — 小强的梦境日记（已有）
 - **daily/*.md** — 每日日志（已有）
-- **待建立：** deep/light/rem 对应机制
+- **待建立：** session-corpus, phase-signals 轻量版
+
+### 大条核心文件
+
+| 文件 | 作用 |
+|------|------|
+| `BOOTSTRAP.md` | 出生引导脚本 |
+| `session-corpus/*.txt` | 所有会话记录存档 |
+| `phase-signals.json` | 记忆片段命中统计 |
+| `daily-ingestion.json` | 每日会话摘要 |
+| `events.jsonl` | 事件日志 |
 
 ## 待完成
 

@@ -42,3 +42,20 @@ nodes[i].widgets_values[0].slice(0, 80)
 "string"  // ✅
 return "string"  // ⚠️ 有时失败
 ```
+
+# 2026-04-21 学习汇报
+
+## ChenYu ComfyUI API 核心掌握
+- 端点: /api/prompt, /api/history, /api/view, /api/queue, /api/models
+- CheckpointLoader → [MODEL, CLIP, VAE]
+- 本地SD免费可用: 老王_Architecutral_MIX V0.3
+- 关键: denoise=0.65(照片) / 0.45(CAD), steps≤20防Pod挂
+
+## 已创建
+- 24个设计工作流 (~/ComfyUI-Workflows/设计专用/)
+- 中英文提示词库 (~/ComfyUI-Workflows/提示词库/)
+- README完整文档
+
+## 待解决
+- Grsai API Key (grsai.com/zh)
+- Hermes MINIMAX_CN_API_KEY
