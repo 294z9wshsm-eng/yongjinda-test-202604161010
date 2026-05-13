@@ -249,3 +249,4 @@ if (require.main === module) {
 }
 
 module.exports = { saveSearchResults, getDefaultStyle, runCompetitiveAnalysis };
+// WIP: 竞品采集优化实验 - 2026-05-13
