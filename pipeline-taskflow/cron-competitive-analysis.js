@@ -59,6 +59,8 @@ async function searchCompetitive(keywords) {
  */
 async function saveSearchResults(posts) {
   const db = new sqlite3.Database(DB_PATH);
+  db.exec('PRAGMA journal_mode=WAL');
+  db.exec('PRAGMA synchronous=NORMAL');
   const today = new Date().toISOString().slice(0, 10);
 
   // 写入竞品数据
