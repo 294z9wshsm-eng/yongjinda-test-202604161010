@@ -34,12 +34,12 @@ jobs:
 
       - name: 检查结果
         run: |
-          if [ -f competitor_data.db ]; then
+          if [ -f pipeline-taskflow/xhs.db ]; then
             echo "✅ 数据库生成成功"
-            ls -lh competitor_data.db
-          elif [ -f pipeline-taskflow/competitor_data.db ]; then
+            ls -lh pipeline-taskflow/xhs.db
+          elif [ -f xhs.db ]; then
             echo "✅ 数据库生成成功"
-            ls -lh pipeline-taskflow/competitor_data.db
+            ls -lh xhs.db
           else
             echo "❌ 数据库未生成"
             exit 1
