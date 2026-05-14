@@ -37,6 +37,9 @@ jobs:
           if [ -f competitor_data.db ]; then
             echo "✅ 数据库生成成功"
             ls -lh competitor_data.db
+          elif [ -f pipeline-taskflow/competitor_data.db ]; then
+            echo "✅ 数据库生成成功"
+            ls -lh pipeline-taskflow/competitor_data.db
           else
             echo "❌ 数据库未生成"
             exit 1
