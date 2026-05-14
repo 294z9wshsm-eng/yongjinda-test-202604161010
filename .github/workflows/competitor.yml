@@ -1,0 +1,76 @@
+name: 竞品采集 CI/CD
+
+on:
+  schedule:
+    # 每天早上 10:00 跑竞品采集
+    - cron: '0 2 * * *'
+  workflow_dispatch:  # 手动触发
+  push:
+    branches:
+      - main
+
+jobs:
+  competitor-analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 运行竞品采集
+        run: node cron-competitive-analysis.js
+        env:
+          NODE_ENV: production
+
+      - name: 检查结果
+        run: |
+          if [ -f competitor_data.db ]; then
+            echo "✅ 数据库生成成功"
+            ls -lh competitor_data.db
+          else
+            echo "❌ 数据库未生成"
+            exit 1
+          fi
+
+  daily-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: competitor-analysis
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 运行每日发布 pipeline
+        run: node daily-pipeline.js
+        env:
+          NODE_ENV: production
+          OPENCLAW_MEDIA_DIR: /app/media
+
+      - name: 上传发布结果
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-results
+          path: |
+            output/*.png
+            logs/*.log
+          retention-days: 7
