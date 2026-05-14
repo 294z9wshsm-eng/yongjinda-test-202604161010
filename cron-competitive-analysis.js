@@ -31,19 +31,20 @@ async function searchCompetitive(keywords) {
   const results = [];
   for (const kw of keywords) {
     try {
-      const out = execSync(`node "${SEARCH_SCRIPT}" "${kw}" --bing-only --max-results=8 --format=json`, {
+      // 用 bash -c 处理 pipe
+      const cmd = `bash -c 'node "${SEARCH_SCRIPT}" sogou "${kw}" --max-results=8 2>/dev/null | node "${PARSE_SCRIPT}"'`;
+      const out = execSync(cmd, {
         timeout: 30000,
-        encoding: 'utf-8',
-        cwd: path.dirname(SEARCH_SCRIPT)
+        encoding: 'utf-8'
       });
       const parsed = JSON.parse(out);
-      const hits = (parsed.bing || parsed.results || [])
+      const hits = (parsed.results || [])
         .filter(r => r.url && !r.url.includes('sogou.com') && !r.url.includes('baidu.com'))
         .slice(0, 5)
         .map(r => ({
-          title: r.title.replace(/<[^>]+>/g, ''),
+          title: r.title,
           url: r.url,
-          snippet: (r.snippet || '').replace(/<[^>]+>/g, '')
+          snippet: r.snippet || ''
         }));
       results.push(...hits);
     } catch(e) {
