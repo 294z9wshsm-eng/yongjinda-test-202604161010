@@ -1,0 +1,16 @@
+{
+  "name": "xhs-competitor-collector",
+  "version": "1.0.0",
+  "description": "小红书竞品采集 + 每日发布 Pipeline",
+  "main": "cron-competitive-analysis.js",
+  "scripts": {
+    "competitor": "node cron-competitive-analysis.js",
+    "pipeline": "node daily-pipeline.js"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.7"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
